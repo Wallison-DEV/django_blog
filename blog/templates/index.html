@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #DDDDDD;
+        color: #76885B;
+    }
+
+    .head_text {
+        color: white;
+    }
+
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+</style>
+
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="site-heading">
+                    <h3 class="mb-3">Seja Bem-vindo ao Nosso Espaço!</h3>
+                    <h1 class="mb-3">Explore e Descubra Conteúdos Incríveis!</h1>
+                    <p class="lead">Mergulhe em um mar de conhecimento, inspiração e entretenimento.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {% for post in post_list %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h3 class="card-text text-muted h6"><b>{{post.author}}</b> - {{post.created_on}}</h3>
+                    <h1 class="card-title">{{post.title}}</h1>
+                    {% if post.content|length > 200 %}
+                    <p class="card-text">{{ post.content|slice:":200" }}...</p>
+                    {% else %}
+                    <p class="card-text">{{ post.content }}</p>
+                    {% endif %}
+                    <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read more &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+    </div>
+</div>
+{%endblock%}
