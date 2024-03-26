@@ -2,14 +2,13 @@ databases:
   - name: first_site_djangodb
     plan: free
     databaseName: first_site_django
-    user: first_site_django
+    user: wallison
 
 services:
   - type: web
     plan: free
     name: first_site_django
     runtime: python
-    buildCommand: "./build.sh"
     startCommand: "python -m gunicorn first_site_django.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
       - key: DATABASE_URL
